@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anti-Amyloid Therapy (AAT) Candidacy &amp; Risk Assessment Tool</title>
+  <style>
+    /* CSS Reset & Variables */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #1e3a8a;
+      --primary-hover: #172554;
+      --primary-light: #eff6ff;
+      --accent-teal: #0f766e;
+      --accent-teal-light: #f0fdfa;
+      
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-500: #64748b;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      
+      --green-bg: #ecfdf5;
+      --green-border: #10b981;
+      --green-text: #065f46;
+      --green-badge: #059669;
+
+      --amber-bg: #fffbeb;
+      --amber-border: #f59e0b;
+      --amber-text: #92400e;
+      --amber-badge: #d97706;
+
+      --red-bg: #fef2f2;
+      --red-border: #ef4444;
+      --red-text: #991b1b;
+      --red-badge: #dc2626;
+
+      --radius: 8px;
+      --radius-sm: 4px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--slate-100);
+      color: var(--slate-900);
+      line-height: 1.5;
+      padding: 1.5rem 1rem 3.5rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Header styling */
+    .header-card {
+      background-color: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-top: 5px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .badge-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+    }
+
+    .badge-pill-teal {
+      background-color: var(--accent-teal-light);
+      color: var(--accent-teal);
+      border-color: #99f6e4;
+    }
+
+    .header-card h1 {
+      font-size: 1.45rem;
+      color: var(--primary);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.25rem;
+    }
+
+    .header-card .subtitle {
+      color: var(--slate-600);
+      font-size: 0.92rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .instructions-callout {
+      background-color: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-left: 4px solid var(--accent-teal);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-size: 0.84rem;
+      color: var(--slate-700);
+    }
+
+    /* Form Section Cards */
+    .form-section {
+      background-color: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius);
+      padding: 1.35rem 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.2rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .btn-shortcut {
+      font-family: inherit;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+      background-color: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.15s ease;
+    }
+
+    .btn-shortcut:hover {
+      background-color: #dbeafe;
+      border-color: #93c5fd;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-desc {
+      font-size: 0.83rem;
+      color: var(--slate-500);
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--slate-100);
+      padding-bottom: 0.5rem;
+    }
+
+    /* Checklist items */
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.45rem 0.5rem;
+      border-radius: var(--radius-sm);
+      transition: background-color 0.15s ease;
+    }
+
+    .check-item:hover {
+      background-color: var(--slate-50);
+    }
+
+    .check-item input[type="checkbox"] {
+      width: 1.15rem;
+      height: 1.15rem;
+      margin-top: 0.15rem;
+      accent-color: var(--primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .check-label {
+      cursor: pointer;
+      font-size: 0.91rem;
+      color: var(--slate-900);
+      flex: 1;
+    }
+
+    .check-label strong {
+      font-weight: 600;
+    }
+
+    .check-hint {
+      display: block;
+      font-size: 0.79rem;
+      color: var(--slate-500);
+      margin-top: 0.15rem;
+      line-height: 1.35;
+    }
+
+    .nested-option {
+      margin-left: 2rem;
+      margin-top: 0.35rem;
+      padding: 0.6rem 0.8rem;
+      background-color: var(--slate-50);
+      border: 1px dashed var(--slate-300);
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      display: none;
+    }
+
+    /* Phase 3 Cards */
+    .test-card {
+      border: 1px solid var(--slate-200);
+      background-color: var(--slate-50);
+      border-radius: var(--radius);
+      padding: 0.95rem 1.1rem;
+      margin-bottom: 0.85rem;
+      transition: border-color 0.15s ease;
+    }
+
+    .test-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .test-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .test-title-box {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex: 1;
+    }
+
+    .test-title-box input[type="checkbox"] {
+      width: 1.15rem;
+      height: 1.15rem;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .test-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 9999px;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .badge-pending {
+      background-color: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+
+    .badge-cleared {
+      background-color: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+
+    .badge-contraindicated {
+      background-color: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    .sub-panel {
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--slate-200);
+      display: none;
+    }
+
+    .sub-panel-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--slate-700);
+      margin-bottom: 0.5rem;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .radio-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.86rem;
+      cursor: pointer;
+      padding: 0.35rem 0.5rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .radio-item:hover {
+      background-color: #ffffff;
+    }
+
+    .radio-item input[type="radio"] {
+      width: 1rem;
+      height: 1rem;
+      margin-top: 0.15rem;
+      accent-color: var(--primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .radio-text {
+      flex: 1;
+      line-height: 1.35;
+    }
+
+    .risk-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      margin-left: 0.3rem;
+    }
+    .risk-tag-low { background-color: #d1fae5; color: #065f46; }
+    .risk-tag-mid { background-color: #fef3c7; color: #92400e; }
+    .risk-tag-high { background-color: #fee2e2; color: #991b1b; }
+
+    /* Button Bar */
+    .button-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.65rem 1.4rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: #ffffff;
+      color: var(--slate-700);
+      border-color: var(--slate-300);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--slate-100);
+      color: var(--slate-900);
+    }
+
+    .btn-copy {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.8rem;
+      border-radius: var(--radius-sm);
+      background-color: #ffffff;
+      border: 1px solid var(--slate-300);
+      color: var(--slate-700);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-copy:hover {
+      background-color: var(--slate-100);
+      color: var(--primary);
+      border-color: var(--slate-400);
+    }
+
+    /* Output Section */
+    #outputSection {
+      display: none;
+      margin-top: 1.5rem;
+    }
+
+    .status-banner {
+      border-radius: var(--radius);
+      padding: 1.25rem 1.4rem;
+      margin-bottom: 1.25rem;
+      border: 1px solid transparent;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .status-banner.status-cleared {
+      background-color: var(--green-bg);
+      border-color: var(--green-border);
+      color: var(--green-text);
+    }
+
+    .status-banner.status-pending {
+      background-color: var(--amber-bg);
+      border-color: var(--amber-border);
+      color: var(--amber-text);
+    }
+
+    .status-banner.status-contraindicated {
+      background-color: var(--red-bg);
+      border-color: var(--red-border);
+      color: var(--red-text);
+    }
+
+    .status-badge-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.35rem;
+    }
+
+    .status-directive {
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .summary-lists {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    @media (min-width: 640px) {
+      .summary-lists {
+        grid-template-columns: 1fr 1fr;
+      }
+      .summary-lists.has-contraindications {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    .summary-box {
+      background-color: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .summary-box h3 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      margin-bottom: 0.65rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid var(--slate-100);
+    }
+
+    .summary-box.box-passed h3 { color: var(--green-badge); }
+    .summary-box.box-pending h3 { color: var(--amber-badge); }
+    .summary-box.box-contraindicated h3 { color: var(--red-badge); }
+
+    .summary-box ul {
+      list-style-type: none;
+      font-size: 0.82rem;
+      color: var(--slate-700);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .summary-box ul li {
+      position: relative;
+      padding-left: 1rem;
+      line-height: 1.4;
+    }
+
+    .summary-box ul li::before {
+      content: "•";
+      position: absolute;
+      left: 0.15rem;
+      font-weight: bold;
+    }
+
+    .box-passed ul li::before { color: var(--green-badge); }
+    .box-pending ul li::before { color: var(--amber-badge); }
+    .box-contraindicated ul li::before { color: var(--red-badge); }
+
+    /* Output Text Areas */
+    .output-card {
+      background-color: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.4rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .output-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .output-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .output-textarea {
+      width: 100%;
+      min-height: 180px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.83rem;
+      line-height: 1.45;
+      padding: 0.75rem;
+      border: 1px solid var(--slate-300);
+      border-radius: var(--radius-sm);
+      background-color: var(--slate-50);
+      color: var(--slate-900);
+      resize: vertical;
+      white-space: pre-wrap;
+    }
+
+    .output-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      background-color: #ffffff;
+    }
+
+    .copy-notification {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--green-badge);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      margin-right: 0.5rem;
+    }
+
+    .copy-notification.visible {
+      opacity: 1;
+    }
+
+    /* Print Optimization */
+    @media print {
+      body {
+        background-color: #ffffff;
+        padding: 0;
+      }
+      .container {
+        max-width: 100%;
+      }
+      .button-bar, .btn-copy, .copy-notification {
+        display: none !important;
+      }
+      .form-section, .output-card, .header-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header Card -->
+  <header class="header-card">
+    <div class="header-badges">
+      <span class="badge-pill">Clinical Decision Support</span>
+      <span class="badge-pill badge-pill-teal">Target Therapies: Lecanemab (Leqembi) / Donanemab (Kisunla)</span>
+    </div>
+    <h1>Anti-Amyloid Therapy (AAT) Candidacy &amp; Risk Assessment Tool</h1>
+    <div class="subtitle">Rapid Pre-Referral Evaluation &amp; SmartPhrase Documentation Generator for Clinical Providers (MD/DO, PA, NP)</div>
+    <div class="instructions-callout">
+      <strong>Protocol Instructions:</strong> Check all applicable items. In Sections 1 and 2, checked boxes indicate criteria met or contraindications absent (safe). Phase 3 confirmatory tests reveal detailed options when checked. <em>Notice: This tool is an initial pre-referral safety screen. Final determination to initiate therapy rests solely with the Cognitive Neurology Team after independent comprehensive clinical review. No PHI is collected or stored.</em>
+    </div>
+  </header>
+
+  <form id="aatForm" onsubmit="return false;">
+
+    <!-- SECTION 1: Baseline Biomarker Screening & Renal Validity -->
+    <section class="form-section">
+      <div class="section-header">
+        <div class="section-title">
+          <span>Phase 1: Initial Diagnostic Laboratory Screening</span>
+        </div>
+        <button type="button" class="btn-shortcut" id="btnShortcutPhase1" title="Mark all Phase 1 laboratory checks as verified">✓ Already Verified/Complete</button>
+      </div>
+      <div class="section-desc">Verify initial plasma biomarker test and confirm kidney function for diagnostic validity.</div>
+      
+      <div class="checklist">
+        <div class="check-item">
+          <input type="checkbox" id="crit_ptau" name="crit_ptau" class="form-trigger">
+          <label for="crit_ptau" class="check-label">
+            <strong>Phosphorylated tau-217 (pTau217) is consistent with Alzheimer's Disease</strong>
+            <span class="check-hint">Initial laboratory screening test indicates elevated amyloid/tau pathology.</span>
+          </label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="crit_egfr" name="crit_egfr" class="form-trigger">
+          <label for="crit_egfr" class="check-label">
+            <strong>Renal Function: eGFR &gt; 50 mL/min</strong>
+            <span class="check-hint">Impaired renal function can lead to false-positive pTau217 elevations. (If eGFR &le; 50, consider alternative testing, e.g., proceed directly to Amyloid-PET scan).</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Baseline Absolute & Relative Contraindications -->
+    <section class="form-section">
+      <div class="section-header">
+        <div class="section-title">
+          <span>Phase 2: Baseline Absolute &amp; Relative Contraindications</span>
+        </div>
+        <button type="button" class="btn-shortcut" id="btnShortcutPhase2" title="Mark all Phase 2 contraindications as absent/cleared">✓ Already Verified/Complete</button>
+      </div>
+      <div class="section-desc">Checked box indicates criterion is satisfied / contraindication is ABSENT (safe).</div>
+
+      <div class="checklist">
+        <div class="check-item">
+          <input type="checkbox" id="crit_mmse" name="crit_mmse" class="form-trigger">
+          <label for="crit_mmse" class="check-label">
+            <strong>Baseline MMSE &ge; 19</strong>
+            <span class="check-hint">Patient is within mild cognitive impairment (MCI) or mild dementia stage.</span>
+          </label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="crit_stable_dz" name="crit_stable_dz" class="form-trigger">
+          <label for="crit_stable_dz" class="check-label">
+            <strong>No unstable medical illness</strong>
+            <span class="check-hint">Absence of acute, medically unstable systemic illness precluding therapy.</span>
+          </label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="crit_liver" name="crit_liver" class="form-trigger">
+          <label for="crit_liver" class="check-label">
+            <strong>No significant liver disease</strong>
+            <span class="check-hint">No advanced cirrhosis, active hepatitis, or severe hepatic failure.</span>
+          </label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="crit_kidney" name="crit_kidney" class="form-trigger">
+          <label for="crit_kidney" class="check-label">
+            <strong>No significant kidney disease</strong>
+            <span class="check-hint">No ESRD, dialysis dependence, or advanced chronic renal failure.</span>
+          </label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="crit_psych" name="crit_psych" class="form-trigger">
+          <label for="crit_psych" class="check-label">
+            <strong>No significant psychiatric illness</strong>
+            <span class="check-hint">Absence of severe, unstable psychiatric illness that would impede adherence or safety.</span>
+          </label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="crit_anticoag" name="crit_anticoag" class="form-trigger">
+          <label for="crit_anticoag" class="check-label">
+            <strong>Not on anticoagulation, or documented protocol exception</strong>
+            <span class="check-hint">Concurrent anticoagulants substantially raise risk of intracerebral hemorrhage and ARIA-H. Exception requires specialist clearance: young/early onset (&lt;50 years old), stable, and otherwise completely healthy.</span>
+          </label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="crit_immuno_disease" name="crit_immuno_disease" class="form-trigger">
+          <label for="crit_immuno_disease" class="check-label">
+            <strong>No active immunologic disease</strong>
+            <span class="check-hint">Absence of uncontrolled autoimmune, inflammatory, or active systemic immune disorders.</span>
+          </label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="crit_immuno_tx" name="crit_immuno_tx" class="form-trigger">
+          <label for="crit_immuno_tx" class="check-label">
+            <strong>Not currently on systemic immunomodulatory therapy</strong>
+            <span class="check-hint">Exclusions: IVIG or other systemic immunoglobulin, plasmapheresis, uncontrolled immunologic disease. Biologics, immunosuppressants, or targeted kinase inhibitors require specialist review.</span>
+          </label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="crit_down_syndrome" name="crit_down_syndrome" class="form-trigger">
+          <label for="crit_down_syndrome" class="check-label">
+            <strong>Absent: Down syndrome</strong>
+          </label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="crit_cancer" name="crit_cancer" class="form-trigger">
+          <label for="crit_cancer" class="check-label">
+            <strong>No recent or active cancer</strong>
+            <span class="check-hint">Excludes localized non-melanoma skin cancer or localized prostate cancer.</span>
+          </label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="crit_stroke" name="crit_stroke" class="form-trigger">
+          <label for="crit_stroke" class="check-label">
+            <strong>No recent stroke</strong>
+            <span class="check-hint">No recent cerebrovascular accident, major ischemic infarction, or recent TIA.</span>
+          </label>
+        </div>
+
+        <div class="check-item">
+          <input type="checkbox" id="crit_age" name="crit_age" class="form-trigger">
+          <label for="crit_age" class="check-label">
+            <strong>Age younger than 90 years (&lt;90)</strong>
+            <span class="check-hint">Patients &ge; 90 are generally excluded due to lack of clinical safety and efficacy data.</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Confirmatory Risk Assessment & Staging -->
+    <section class="form-section">
+      <div class="section-title">
+        <span>Phase 3: Confirmatory Risk Assessment &amp; Staging</span>
+      </div>
+      <div class="section-desc">Check when test has been completed/resulted to reveal findings and stratify ARIA risk.</div>
+
+      <!-- Test 1: Amyloid-PET -->
+      <div class="test-card" id="card_pet">
+        <div class="test-card-header">
+          <div class="test-title-box">
+            <input type="checkbox" id="pet_completed" class="form-trigger">
+            <label for="pet_completed" class="check-label">
+              <strong>Amyloid-PET Scan Completed</strong>
+              <span class="check-hint">Verifies presence of cerebral amyloid neuritic plaques (confirms initial lab screening).</span>
+            </label>
+          </div>
+          <span class="test-badge badge-pending" id="badge_pet">Pending</span>
+        </div>
+        <div class="sub-panel" id="panel_pet">
+          <div class="sub-panel-title">Select Scan Finding:</div>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="pet_result" value="positive" class="form-trigger">
+              <span class="radio-text"><strong>Positive / Consistent with cerebral amyloid neuritic plaques</strong> (Passed)</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="pet_result" value="negative" class="form-trigger">
+              <span class="radio-text"><strong>Negative / Plaque pathology not confirmed</strong> (Contraindicated / Ineligible)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Test 2: Brain MRI Microhemorrhage Protocol -->
+      <div class="test-card" id="card_mri">
+        <div class="test-card-header">
+          <div class="test-title-box">
+            <input type="checkbox" id="mri_completed" class="form-trigger">
+            <label for="mri_completed" class="check-label">
+              <strong>Brain MRI (Microhemorrhage Protocol) Completed</strong>
+              <span class="check-hint">MRI brain without contrast, specifically noting quantity of microhemorrhages (&gt;4 is contraindication).</span>
+            </label>
+          </div>
+          <span class="test-badge badge-pending" id="badge_mri">Pending</span>
+        </div>
+        <div class="sub-panel" id="panel_mri">
+          <div class="sub-panel-title">Select Microhemorrhage Quantity:</div>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="mri_result" value="le4" class="form-trigger">
+              <span class="radio-text"><strong>&le; 4 microhemorrhages</strong> on MRI (Acceptable safety threshold / Passed)</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="mri_result" value="gt4" class="form-trigger">
+              <span class="radio-text"><strong>&gt; 4 microhemorrhages</strong> on MRI (Contraindicated / Precluded due to heightened ARIA-H risk)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Test 3: ApoE Genotyping -->
+      <div class="test-card" id="card_apoe">
+        <div class="test-card-header">
+          <div class="test-title-box">
+            <input type="checkbox" id="apoe_completed" class="form-trigger">
+            <label for="apoe_completed" class="check-label">
+              <strong>ApoE Genotype Serum Testing Completed</strong>
+              <span class="check-hint">Confirms not homozygous for ApoE &epsilon;4 (homozygotes are high risk for ARIA).</span>
+            </label>
+          </div>
+          <span class="test-badge badge-pending" id="badge_apoe">Pending</span>
+        </div>
+        <div class="sub-panel" id="panel_apoe">
+          <div class="sub-panel-title">Select Patient Allele Combination:</div>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="apoe_allele" value="e2e2" class="form-trigger">
+              <span class="radio-text"><strong>&epsilon;2/&epsilon;2</strong> — Noncarrier <span class="risk-tag risk-tag-low">Baseline Low Risk</span> (~13% ARIA, ~1% symptomatic ARIA-E)</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="apoe_allele" value="e2e3" class="form-trigger">
+              <span class="radio-text"><strong>&epsilon;2/&epsilon;3</strong> — Noncarrier <span class="risk-tag risk-tag-low">Baseline Low Risk</span> (~13% ARIA, ~1% symptomatic ARIA-E)</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="apoe_allele" value="e3e3" class="form-trigger">
+              <span class="radio-text"><strong>&epsilon;3/&epsilon;3</strong> — Noncarrier <span class="risk-tag risk-tag-low">Baseline Low Risk</span> (~13% ARIA, ~1% symptomatic ARIA-E)</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="apoe_allele" value="e2e4" class="form-trigger">
+              <span class="radio-text"><strong>&epsilon;2/&epsilon;4</strong> — Heterozygote <span class="risk-tag risk-tag-mid">Intermediate Risk</span> (~19% ARIA, ~2% symptomatic ARIA-E)</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="apoe_allele" value="e3e4" class="form-trigger">
+              <span class="radio-text"><strong>&epsilon;3/&epsilon;4</strong> — Heterozygote <span class="risk-tag risk-tag-mid">Intermediate Risk</span> (~19% ARIA, ~2% symptomatic ARIA-E)</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="apoe_allele" value="e4e4" class="form-trigger">
+              <span class="radio-text"><strong>&epsilon;4/&epsilon;4</strong> — Homozygote <span class="risk-tag risk-tag-high">High Risk</span> (<strong>CONTRAINDICATED:</strong> ~45% ARIA, ~9% symptomatic, ~3% serious)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Controls -->
+    <div class="button-bar">
+      <button type="button" id="btnVerify" class="btn btn-primary">Verify Candidacy</button>
+      <button type="button" id="btnClear" class="btn btn-secondary">Clear Form</button>
+    </div>
+
+  </form>
+
+  <!-- OUTPUT SECTION -->
+  <main id="outputSection" aria-live="polite">
+    
+    <!-- Determination Banner -->
+    <div id="statusBanner" class="status-banner">
+      <div id="statusTitle" class="status-badge-title">Determination Status</div>
+      <div id="statusDirective" class="status-directive">Clinical action directive will appear here.</div>
+    </div>
+
+    <!-- Summary Box Grid -->
+    <div class="summary-lists" id="summaryGrid">
+      <div class="summary-box box-passed" id="boxPassed">
+        <h3>Screening Criteria Met</h3>
+        <ul id="listPassed"></ul>
+      </div>
+
+      <div class="summary-box box-pending" id="boxPending">
+        <h3>Pending Risk Workup Items</h3>
+        <ul id="listPending"></ul>
+      </div>
+
+      <div class="summary-box box-contraindicated" id="boxContra" style="display:none;">
+        <h3>Contraindications / Preclusions</h3>
+        <ul id="listContra"></ul>
+      </div>
+    </div>
+
+    <!-- Plain Text Output 1: Progress Note -->
+    <div class="output-card">
+      <div class="output-header">
+        <span class="output-title">EHR Progress Note Output (Plain Text)</span>
+        <div>
+          <span class="copy-notification" id="copyNoteNotify">Copied to clipboard!</span>
+          <button type="button" class="btn-copy" id="btnCopyNote">Copy Progress Note</button>
+        </div>
+      </div>
+      <textarea id="textProgressNote" class="output-textarea" readonly aria-label="Epic EHR Progress Note Plain Text"></textarea>
+    </div>
+
+    <!-- Plain Text Output 2: Patient AVS -->
+    <div class="output-card">
+      <div class="output-header">
+        <span class="output-title">After Visit Summary (AVS) Output (Patient-Directed Format)</span>
+        <div>
+          <span class="copy-notification" id="copyAvsNotify">Copied to clipboard!</span>
+          <button type="button" class="btn-copy" id="btnCopyAvs">Copy AVS Text</button>
+        </div>
+      </div>
+      <textarea id="textAvs" class="output-textarea" readonly aria-label="After Visit Summary Plain Text"></textarea>
+    </div>
+
+  </main>
+
+</div>
+
+<script>
+  /* Standalone Vanilla JavaScript Logic Engine */
+  (function() {
+    // Form elements
+    const form = document.getElementById('aatForm');
+    const btnVerify = document.getElementById('btnVerify');
+    const btnClear = document.getElementById('btnClear');
+    const btnShortcutPhase1 = document.getElementById('btnShortcutPhase1');
+    const btnShortcutPhase2 = document.getElementById('btnShortcutPhase2');
+    const outputSection = document.getElementById('outputSection');
+
+    // Section 1 & 2 Checkboxes
+    const critPtau = document.getElementById('crit_ptau');
+    const critEgfr = document.getElementById('crit_egfr');
+    const critMmse = document.getElementById('crit_mmse');
+    const critStableDz = document.getElementById('crit_stable_dz');
+    const critLiver = document.getElementById('crit_liver');
+    const critKidney = document.getElementById('crit_kidney');
+    const critPsych = document.getElementById('crit_psych');
+    const critAnticoag = document.getElementById('crit_anticoag');
+    const critImmunoDisease = document.getElementById('crit_immuno_disease');
+    const critImmunoTx = document.getElementById('crit_immuno_tx');
+    const critDown = document.getElementById('crit_down_syndrome');
+    const critCancer = document.getElementById('crit_cancer');
+    const critStroke = document.getElementById('crit_stroke');
+    const critAge = document.getElementById('crit_age');
+
+    // Section 3 Elements
+    const petCompleted = document.getElementById('pet_completed');
+    const panelPet = document.getElementById('panel_pet');
+    const badgePet = document.getElementById('badge_pet');
+
+    const mriCompleted = document.getElementById('mri_completed');
+    const panelMri = document.getElementById('panel_mri');
+    const badgeMri = document.getElementById('badge_mri');
+
+    const apoeCompleted = document.getElementById('apoe_completed');
+    const panelApoe = document.getElementById('panel_apoe');
+    const badgeApoe = document.getElementById('badge_apoe');
+
+    // Output Elements
+    const statusBanner = document.getElementById('statusBanner');
+    const statusTitle = document.getElementById('statusTitle');
+    const statusDirective = document.getElementById('statusDirective');
+    const summaryGrid = document.getElementById('summaryGrid');
+    const boxContra = document.getElementById('boxContra');
+    const listPassed = document.getElementById('listPassed');
+    const listPending = document.getElementById('listPending');
+    const listContra = document.getElementById('listContra');
+    const textProgressNote = document.getElementById('textProgressNote');
+    const textAvs = document.getElementById('textAvs');
+
+    // Copy Feedback
+    const btnCopyNote = document.getElementById('btnCopyNote');
+    const btnCopyAvs = document.getElementById('btnCopyAvs');
+    const copyNoteNotify = document.getElementById('copyNoteNotify');
+    const copyAvsNotify = document.getElementById('copyAvsNotify');
+
+    let hasVerifiedOnce = false;
+
+    // Toggle Phase 3 Sub-Panels & Update Status Badges
+    function updatePhase3Panels() {
+      // Amyloid-PET
+      if (petCompleted.checked) {
+        panelPet.style.display = 'block';
+        const petVal = document.querySelector('input[name="pet_result"]:checked');
+        if (petVal && petVal.value === 'positive') {
+          badgePet.textContent = 'Consistent';
+          badgePet.className = 'test-badge badge-cleared';
+        } else if (petVal && petVal.value === 'negative') {
+          badgePet.textContent = 'Contraindicated';
+          badgePet.className = 'test-badge badge-contraindicated';
+        } else {
+          badgePet.textContent = 'Result Pending';
+          badgePet.className = 'test-badge badge-pending';
+        }
+      } else {
+        panelPet.style.display = 'none';
+        badgePet.textContent = 'Pending';
+        badgePet.className = 'test-badge badge-pending';
+      }
+
+      // Brain MRI
+      if (mriCompleted.checked) {
+        panelMri.style.display = 'block';
+        const mriVal = document.querySelector('input[name="mri_result"]:checked');
+        if (mriVal && mriVal.value === 'le4') {
+          badgeMri.textContent = 'Acceptable (≤4)';
+          badgeMri.className = 'test-badge badge-cleared';
+        } else if (mriVal && mriVal.value === 'gt4') {
+          badgeMri.textContent = 'Contraindicated (>4)';
+          badgeMri.className = 'test-badge badge-contraindicated';
+        } else {
+          badgeMri.textContent = 'Result Pending';
+          badgeMri.className = 'test-badge badge-pending';
+        }
+      } else {
+        panelMri.style.display = 'none';
+        badgeMri.textContent = 'Pending';
+        badgeMri.className = 'test-badge badge-pending';
+      }
+
+      // ApoE Genotype
+      if (apoeCompleted.checked) {
+        panelApoe.style.display = 'block';
+        const apoeVal = document.querySelector('input[name="apoe_allele"]:checked');
+        if (apoeVal) {
+          if (apoeVal.value === 'e4e4') {
+            badgeApoe.textContent = 'Contraindicated';
+            badgeApoe.className = 'test-badge badge-contraindicated';
+          } else {
+            badgeApoe.textContent = 'Stratified';
+            badgeApoe.className = 'test-badge badge-cleared';
+          }
+        } else {
+          badgeApoe.textContent = 'Result Pending';
+          badgeApoe.className = 'test-badge badge-pending';
+        }
+      } else {
+        panelApoe.style.display = 'none';
+        badgeApoe.textContent = 'Pending';
+        badgeApoe.className = 'test-badge badge-pending';
+      }
+    }
+
+    // Input Change Handler
+    function onInputChange() {
+      updatePhase3Panels();
+
+      if (hasVerifiedOnce) {
+        btnVerify.textContent = 'Re-verify Candidacy';
+        btnVerify.classList.add('btn-primary');
+      }
+    }
+
+    // Attach listener to all inputs
+    const allInputs = document.querySelectorAll('.form-trigger');
+    allInputs.forEach(input => {
+      input.addEventListener('change', onInputChange);
+    });
+
+    // Verification Logic & Output Builder
+    function evaluateCandidacy() {
+      const contraindications = [];
+      const pendingItems = [];
+      const passedItems = [];
+
+      // Phase 1: Diagnostic Laboratory Screening
+      let ptauPassed = false;
+      if (critPtau.checked) {
+        ptauPassed = true;
+        passedItems.push("Phosphorylated tau-217 (pTau217) consistent with Alzheimer's Disease pathology");
+      } else {
+        contraindications.push("pTau217 testing is incomplete or not consistent with Alzheimer's Disease");
+      }
+
+      let egfrPassed = false;
+      if (critEgfr.checked) {
+        egfrPassed = true;
+        passedItems.push("Renal diagnostic validity verified (eGFR > 50 mL/min)");
+      } else {
+        contraindications.push("eGFR ≤ 50 mL/min (Risk of false-positive pTau217; requires direct Amyloid-PET scan to confirm pathology)");
+      }
+
+      // Phase 2: Baseline Absolute & Relative Contraindications
+      let phase2AllPassed = true;
+
+      if (!critMmse.checked) {
+        phase2AllPassed = false;
+        contraindications.push("Baseline MMSE < 19 (Outside mild cognitive impairment / mild dementia threshold)");
+      }
+
+      if (!critStableDz.checked) {
+        phase2AllPassed = false;
+        contraindications.push("Presence of unstable medical illness");
+      }
+
+      if (!critLiver.checked) {
+        phase2AllPassed = false;
+        contraindications.push("Significant hepatic disease or dysfunction present");
+      }
+
+      if (!critKidney.checked) {
+        phase2AllPassed = false;
+        contraindications.push("Significant chronic kidney disease present");
+      }
+
+      if (!critPsych.checked) {
+        phase2AllPassed = false;
+        contraindications.push("Significant active psychiatric illness present");
+      }
+
+      // Anticoagulation evaluation
+      if (!critAnticoag.checked) {
+        phase2AllPassed = false;
+        contraindications.push("Concurrent systemic anticoagulation without documented protocol exemption (Heightened intracerebral hemorrhage / ARIA-H risk)");
+      }
+
+      if (!critImmunoDisease.checked) {
+        phase2AllPassed = false;
+        contraindications.push("Active immunologic or uncontrolled autoimmune disease present");
+      }
+
+      if (!critImmunoTx.checked) {
+        phase2AllPassed = false;
+        contraindications.push("Active systemic immunomodulatory therapy (IVIG, plasmapheresis, or immunosuppressive biologic)");
+      }
+
+      if (!critDown.checked) {
+        phase2AllPassed = false;
+        contraindications.push("Down syndrome present");
+      }
+
+      if (!critCancer.checked) {
+        phase2AllPassed = false;
+        contraindications.push("Recent or active cancer (excluding localized non-melanoma skin or localized prostate)");
+      }
+
+      if (!critStroke.checked) {
+        phase2AllPassed = false;
+        contraindications.push("Recent stroke or significant cerebrovascular event");
+      }
+
+      if (!critAge.checked) {
+        phase2AllPassed = false;
+        contraindications.push("Age ≥ 90 years old (Excluded due to lack of clinical safety and efficacy data)");
+      }
+
+      if (phase2AllPassed) {
+        passedItems.push("Absolute contraindications ruled out on clinical screening");
+      }
+
+      // Phase 3: Confirmatory Risk Assessment & Staging
+      // 1. Amyloid-PET
+      let petStatusDetail = "";
+      if (petCompleted.checked) {
+        const petVal = document.querySelector('input[name="pet_result"]:checked');
+        if (petVal && petVal.value === 'positive') {
+          passedItems.push("Amyloid-PET confirmed positive for cerebral amyloid neuritic plaques");
+          petStatusDetail = "Positive (confirmed cerebral amyloid neuritic plaques)";
+        } else if (petVal && petVal.value === 'negative') {
+          contraindications.push("Amyloid-PET scan negative (Absence of significant amyloid plaque pathology precludes AAT)");
+          petStatusDetail = "Negative (no significant plaque pathology confirmed)";
+        } else {
+          pendingItems.push("Amyloid-PET scan completed but result interpretation selection is pending");
+          petStatusDetail = "Result interpretation pending";
+        }
+      } else {
+        pendingItems.push("Amyloid-PET Scan (Pending/Ordered to confirm neuritic plaque pathology)");
+        petStatusDetail = "Pending / Ordered";
+      }
+
+      // 2. Brain MRI
+      let mriStatusDetail = "";
+      if (mriCompleted.checked) {
+        const mriVal = document.querySelector('input[name="mri_result"]:checked');
+        if (mriVal && mriVal.value === 'le4') {
+          passedItems.push("Brain MRI confirms ≤ 4 microhemorrhages (Acceptable safety threshold)");
+          mriStatusDetail = "≤ 4 microhemorrhages (acceptable safety threshold)";
+        } else if (mriVal && mriVal.value === 'gt4') {
+          contraindications.push("Brain MRI demonstrates > 4 microhemorrhages (Precluded due to heightened ARIA-H risk)");
+          mriStatusDetail = "> 4 microhemorrhages (precluded due to hemorrhage risk)";
+        } else {
+          pendingItems.push("Brain MRI completed but microhemorrhage count selection is pending");
+          mriStatusDetail = "Result interpretation pending";
+        }
+      } else {
+        pendingItems.push("Brain MRI without contrast with microhemorrhage protocol (Pending/Ordered)");
+        mriStatusDetail = "Pending / Ordered";
+      }
+
+      // 3. ApoE Genotyping
+      let apoeRiskText = "";
+      if (apoeCompleted.checked) {
+        const apoeVal = document.querySelector('input[name="apoe_allele"]:checked');
+        if (apoeVal) {
+          if (apoeVal.value === 'e4e4') {
+            contraindications.push("ApoE Genotype ε4/ε4 Homozygote (Severe high risk for ARIA: ~45% total, ~9% symptomatic, ~3% serious. Precluded from AAT)");
+            apoeRiskText = "ApoE ε4/ε4 Homozygote (High Risk - Contraindicated)";
+          } else if (apoeVal.value === 'e2e4' || apoeVal.value === 'e3e4') {
+            const alleleName = apoeVal.value === 'e2e4' ? 'ε2/ε4' : 'ε3/ε4';
+            passedItems.push(`ApoE Genotype: ${alleleName} Heterozygote (Intermediate ARIA Risk: ~19% total, ~2% symptomatic ARIA-E)`);
+            apoeRiskText = `ApoE ${alleleName} Heterozygote (Intermediate Risk: ~19% ARIA, ~2% symptomatic ARIA-E)`;
+          } else {
+            let alleleName = 'ε3/ε3';
+            if (apoeVal.value === 'e2e2') alleleName = 'ε2/ε2';
+            if (apoeVal.value === 'e2e3') alleleName = 'ε2/ε3';
+            passedItems.push(`ApoE Genotype: ${alleleName} Noncarrier (Baseline Low ARIA Risk: ~13% total, ~1% symptomatic ARIA-E)`);
+            apoeRiskText = `ApoE ${alleleName} Noncarrier (Baseline Low Risk: ~13% ARIA, ~1% symptomatic ARIA-E)`;
+          }
+        } else {
+          pendingItems.push("ApoE serum test completed but allele selection is pending");
+          apoeRiskText = "Completed - allele interpretation pending";
+        }
+      } else {
+        pendingItems.push("ApoE Serum Genotype (Pending/Ordered for ARIA risk stratification)");
+        apoeRiskText = "Pending / Ordered";
+      }
+
+      // Tri-State Determination
+      let globalStatus = "";
+      let statusBadgeClass = "";
+      let statusHeadline = "";
+      let directiveText = "";
+
+      if (contraindications.length > 0) {
+        globalStatus = "CONTRAINDICATED";
+        statusBadgeClass = "status-contraindicated";
+        statusHeadline = "NOT A CANDIDATE / CONTRAINDICATED AT THIS TIME";
+        directiveText = "One or more contraindications or safety preclusions were identified during screening. Anti-amyloid monoclonal antibody therapy is not recommended at this time. If an evaluation appointment with the Cognitive Neurology Team has already been scheduled, contact the team to cancel or redirect the visit.";
+      } else if (pendingItems.length > 0) {
+        globalStatus = "PENDING";
+        statusBadgeClass = "status-pending";
+        statusHeadline = "WORKUP IN PROGRESS — PENDING CONFIRMATORY TESTING";
+        directiveText = "Initial clinical contraindications are currently ruled out. Confirmatory Phase 3 imaging and/or genetic tests are pending. Place pending orders (SmartSet) and defer formal referral until confirmatory imaging and genetics are resulted. Final determination will be made by the Cognitive Neurology Team once all results are available.";
+      } else {
+        globalStatus = "FAVORABLE";
+        statusBadgeClass = "status-cleared";
+        statusHeadline = "POTENTIAL CANDIDATE — NO CONTRAINDICATIONS IDENTIFIED (Pending Specialist Evaluation)";
+        directiveText = "Initial screening is favorable and absolute contraindications have been ruled out. Referral to the Cognitive Neurology Team is appropriate for independent comprehensive clinical review and final treatment determination. Therapy is not guaranteed until formal specialist consultation.";
+      }
+
+      // Update UI Banner & Lists
+      statusBanner.className = `status-banner ${statusBadgeClass}`;
+      statusTitle.textContent = statusHeadline;
+      statusDirective.textContent = directiveText;
+
+      listPassed.innerHTML = passedItems.map(item => `<li>${item}</li>`).join('');
+      listPending.innerHTML = pendingItems.length ? pendingItems.map(item => `<li>${item}</li>`).join('') : '<li><em>All confirmatory tests completed and resulted.</em></li>';
+      
+      if (contraindications.length > 0) {
+        boxContra.style.display = 'block';
+        summaryGrid.classList.add('has-contraindications');
+        listContra.innerHTML = contraindications.map(item => `<li>${item}</li>`).join('');
+      } else {
+        boxContra.style.display = 'none';
+        summaryGrid.classList.remove('has-contraindications');
+        listContra.innerHTML = '';
+      }
+
+      // Generate Epic Progress Note Text
+      const noteDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+      let ehrText = `ANTI-AMYLOID THERAPY (AAT) PRE-REFERRAL SCREENING ASSESSMENT\n`;
+      ehrText += `Evaluation Date: ${noteDate}\n`;
+      ehrText += `Target Agents: Lecanemab (Leqembi) / Donanemab (Kisunla) Protocol\n`;
+      ehrText += `Notice: Initial screening tool only. Final determination to initiate therapy rests solely with the Cognitive Neurology Team.\n`;
+      ehrText += `------------------------------------------------------------\n`;
+      ehrText += `OVERALL DETERMINATION:\n${statusHeadline}\n\n`;
+      ehrText += `CLINICAL DIRECTIVE:\n${directiveText}\n\n`;
+
+      ehrText += `1. SCREENING SAFETY STATUS & CONTRAINDICATIONS:\n`;
+      if (contraindications.length > 0) {
+        ehrText += ` [!] Safety contraindications or precluding factors identified on screening (see details below)\n`;
+      } else {
+        ehrText += ` [√] Absolute contraindications ruled out on clinical screening\n`;
+      }
+      ehrText += `\n`;
+
+      ehrText += `2. BIOMARKER & CONFIRMATORY WORKUP SUMMARY:\n`;
+      ehrText += ` • pTau217 Plasma Biomarker: ${critPtau.checked ? "Consistent with Alzheimer's Disease" : "Incomplete / Not consistent"}\n`;
+      ehrText += ` • eGFR Renal Validity: ${critEgfr.checked ? "eGFR > 50 mL/min (Diagnostic validity confirmed)" : "eGFR ≤ 50 mL/min (Direct Amyloid-PET required)"}\n`;
+      ehrText += ` • Amyloid-PET Scan: ${petStatusDetail}\n`;
+      ehrText += ` • Brain MRI (Microhemorrhages): ${mriStatusDetail}\n`;
+      ehrText += ` • ApoE Genotype: ${apoeRiskText || "Pending / Ordered"}\n\n`;
+
+      if (contraindications.length > 0) {
+        ehrText += `3. IDENTIFIED CONTRAINDICATIONS / PRECLUDING FACTORS:\n`;
+        contraindications.forEach(c => {
+          ehrText += ` [X] ${c}\n`;
+        });
+        ehrText += `\n`;
+      }
+
+      ehrText += `------------------------------------------------------------\n`;
+      ehrText += `PLAN:\n`;
+      if (globalStatus === "CONTRAINDICATED") {
+        ehrText += `- Patient is not a candidate for monoclonal anti-amyloid therapy based on initial safety contraindication screening.\n`;
+        ehrText += `- Discussed supportive care, risk reduction, and symptomatic cognitive therapies.\n`;
+        ehrText += `- Contact Cognitive Neurology Team to cancel or redirect any pending AAT intake appointments.\n`;
+      } else if (globalStatus === "PENDING") {
+        ehrText += `- Patient is a potential candidate for AAT; pre-referral safety screen shows no immediate clinical contraindications.\n`;
+        ehrText += `- Confirmatory Phase 3 testing is currently pending/ordered (Amyloid-PET, MRI microhemorrhage protocol, and/or ApoE serum genotyping).\n`;
+        ehrText += `- Re-evaluate findings upon completion of pending orders before finalizing specialist referral.\n`;
+      } else {
+        ehrText += `- Initial pre-referral screen completed with no contraindications identified.\n`;
+        ehrText += `- Submitting referral to Cognitive Neurology Team for comprehensive independent evaluation and final treatment determination.\n`;
+        ehrText += `- Patient and family counseled that referral is an initial step; final decision regarding treatment safety and appropriateness will be made by the Cognitive Neurology specialist.\n`;
+        ehrText += `- Reviewed anticipated safety monitoring requirements (including regular baseline and on-treatment surveillance MRI scans for ARIA).\n`;
+      }
+
+      textProgressNote.value = ehrText;
+
+      // Generate Patient AVS Text
+      let avs = `SUMMARY OF YOUR MEMORY CARE DISCUSSION: ANTI-AMYLOID THERAPY (AAT) SCREENING\n\n`;
+      avs += `Today we discussed newer medications for Alzheimer's disease called anti-amyloid antibody therapies (such as lecanemab or donanemab). These treatments aim to slow cognitive changes by reducing amyloid protein plaques in the brain.\n\n`;
+      avs += `Because these medications carry important health risks (such as swelling or bleeding in the brain, known as ARIA), there is a careful, step-by-step screening process to ensure they are safe for each individual. Completing this checklist is an initial screening step; it does not guarantee that therapy will be started. The final decision is a shared process made in close partnership with a specialist on the Cognitive Neurology Team after a complete evaluation.\n\n`;
+
+      if (globalStatus === "FAVORABLE") {
+        avs += `CURRENT STATUS: INITIAL SCREENING FAVORABLE — NO CONTRAINDICATIONS IDENTIFIED\n`;
+        avs += `• Based on your medical history, current health, and preliminary tests, we did not find any immediate safety red flags or contraindications.\n`;
+        avs += `• Your preliminary laboratory and imaging tests are consistent with the requirements for this therapy.\n`;
+        if (apoeRiskText && apoeRiskText !== "Pending / Ordered") {
+          avs += `• Your ApoE genetic test result (${apoeRiskText}) has been documented to assist the specialist in determining your personalized monitoring schedule.\n`;
+        }
+        avs += `\nWHAT ARE THE NEXT STEPS?\n`;
+        avs += `1. We are submitting a referral to the Cognitive Neurology Team for an in-depth consultation.\n`;
+        avs += `2. The specialist team will independently review all your scans, lab tests, and personal health background.\n`;
+        avs += `3. During that visit, the specialist will discuss the potential benefits, risks, therapy schedule (whether given by injection or infusion), and required safety MRI scans with you and your family to determine whether this therapy is appropriate for you.\n`;
+      } else if (globalStatus === "PENDING") {
+        avs += `CURRENT STATUS: EVALUATION IN PROGRESS — CONFIRMATORY TESTS PENDING\n`;
+        avs += `• Our initial check of your medical background did not show any immediate contraindications, meaning you may be a potential candidate.\n`;
+        avs += `• However, we cannot make a final recommendation until the following specific confirmatory safety tests are completed and reviewed, which will help determine safety of therapy:\n`;
+        pendingItems.forEach(p => {
+          avs += `   - ${p.replace('(Pending/Ordered)', '').replace('(Pending/Ordered to confirm neuritic plaque pathology)', '').replace('(Pending/Ordered for ARIA risk stratification)', '').trim()}\n`;
+        });
+        avs += `\nWHAT ARE THE NEXT STEPS?\n`;
+        avs += `1. Please complete the pending tests we have ordered for you.\n`;
+        avs += `2. Once the results are returned, we will review them together.\n`;
+        avs += `3. If the results continue to show no safety contraindications, we will submit a formal referral to the Cognitive Neurology Team for specialized evaluation.\n`;
+      } else {
+        avs += `CURRENT STATUS: TREATMENT NOT RECOMMENDED AT THIS TIME\n`;
+        avs += `Based on our clinical review of your health history and test results, anti-amyloid therapy is currently not recommended because of the following safety factor(s):\n`;
+        contraindications.forEach(c => {
+          avs += `• ${c}\n`;
+        });
+        avs += `\nWHY IS THIS IMPORTANT FOR YOUR SAFETY?\n`;
+        avs += `Your safety and well-being are always our highest priority. Anti-amyloid medications can cause serious side effects, including brain swelling and small areas of bleeding. When specific medical conditions, medications, or scan findings are present, the potential dangers of treatment outweigh the possible benefits.\n\n`;
+        avs += `WHAT ARE THE NEXT STEPS?\n`;
+        avs += `We will continue to focus on protecting your memory and overall health through proven supportive strategies, lifestyle modifications, and other established medications. If an appointment was previously scheduled specifically for this therapy, our team will assist in updating or redirecting that visit.\n`;
+      }
+
+      textAvs.value = avs;
+
+      // Reveal Output Section
+      outputSection.style.display = 'block';
+      outputSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      hasVerifiedOnce = true;
+      btnVerify.textContent = 'Verify Candidacy';
+    }
+
+    // Copy to clipboard helper
+    function copyText(textarea, notifySpan) {
+      if (!textarea.value) return;
+      textarea.select();
+      textarea.setSelectionRange(0, 99999);
+
+      let success = false;
+      try {
+        success = document.execCommand('copy');
+      } catch (err) {
+        success = false;
+      }
+
+      if (success) {
+        notifySpan.classList.add('visible');
+        setTimeout(() => {
+          notifySpan.classList.remove('visible');
+        }, 2500);
+      }
+    }
+
+    // Reset Form
+    function clearForm() {
+      form.reset();
+      updatePhase3Panels();
+
+      outputSection.style.display = 'none';
+      hasVerifiedOnce = false;
+      btnVerify.textContent = 'Verify Candidacy';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Event Listeners
+    btnVerify.addEventListener('click', evaluateCandidacy);
+    btnClear.addEventListener('click', clearForm);
+
+    // Shortcut Buttons (Phase 1 & Phase 2)
+    btnShortcutPhase1.addEventListener('click', () => {
+      critPtau.checked = true;
+      critEgfr.checked = true;
+      onInputChange();
+    });
+
+    btnShortcutPhase2.addEventListener('click', () => {
+      const phase2Checks = [
+        critMmse, critStableDz, critLiver, critKidney, critPsych,
+        critAnticoag, critImmunoDisease, critImmunoTx,
+        critDown, critCancer, critStroke, critAge
+      ];
+      phase2Checks.forEach(cb => { cb.checked = true; });
+      onInputChange();
+    });
+
+    btnCopyNote.addEventListener('click', () => copyText(textProgressNote, copyNoteNotify));
+    btnCopyAvs.addEventListener('click', () => copyText(textAvs, copyAvsNotify));
+
+    // Initialize defaults on DOM load
+    window.addEventListener('DOMContentLoaded', () => {
+      updatePhase3Panels();
+    });
+
+  })();
+</script>
+
+<!-- Expandable Attribution, Methodology & Clinical References -->
+<footer style="margin-top: 2.5rem; text-align: center; font-size: 0.75rem; color: var(--slate-500, #64748b); line-height: 1.5;">
+  <p style="margin-bottom: 0.5rem;">
+    <em>Created by Carl Erickson, MD | Biddeford, Maine &bull; Last updated: October 2026</em>
+  </p>
+
+  <details style="display: inline-block; text-align: left; max-width: 720px; margin: 0 auto; background-color: #ffffff; border: 1px solid var(--slate-200, #e2e8f0); border-radius: var(--radius-sm, 4px); padding: 0.6rem 0.9rem;">
+    <summary style="cursor: pointer; font-weight: 600; color: var(--primary, #1e3a8a); user-select: none; outline: none; list-style-position: inside;">
+      About this tool: Clinical references, architecture & development methodology
+    </summary>
+
+    <div style="margin-top: 0.75rem; padding-top: 0.65rem; border-top: 1px solid var(--slate-200, #e2e8f0); font-size: 0.72rem; color: var(--slate-600, #475569); line-height: 1.55;">
+      <p style="margin-bottom: 0.6rem;">
+        <strong>Clinical Architecture & Intent:</strong> Conceived, clinically mapped, and authored by an active practicing neurologist. This tool serves as a rapid pre-referral checklist and documentation generator to screen potential candidates for monoclonal anti-amyloid therapies (e.g., lecanemab, donanemab) prior to subspecialty evaluation. It operates entirely client-side without collecting, processing, or transmitting Protected Health Information (PHI).
+      </p>
+
+      <p style="margin-bottom: 0.6rem;">
+        <strong>Development Methodology:</strong> Developed via a rigorous physician-in-the-loop, AI-assisted context engineering workflow. Decision logic, safety cutoff thresholds, clinical phrasing, and risk strata were physician-specified and iteratively validated against established clinical practice guidelines, with large language model assistance leveraged solely for front-end interface synthesis and code generation.
+      </p>
+
+      <p style="margin-bottom: 0.35rem;">
+        <strong>Primary Clinical Sources & References:</strong>
+      </p>
+      <ul style="padding-left: 1.2rem; margin-bottom: 0.5rem; display: flex; flex-direction: column; gap: 0.3rem;">
+        <li>
+          <strong>Donanemab Appropriate Use Recommendations:</strong> Cummings J, et al. <em>Donanemab: Appropriate Use Recommendations</em>. J Prev Alzheimers Dis. 2025; 12(1):100094.
+        </li>
+        <li>
+          <strong>Lecanemab Appropriate Use Recommendations:</strong> Cummings J, et al. <em>Lecanemab: Appropriate Use Recommendations</em>. J Prev Alzheimers Dis. 2023; 10(3):362-377.
+        </li>
+        <li>
+          <strong>Amyloid-Related Imaging Abnormalities (ARIA) & ApoE Risk:</strong> Reiman EM, et al. / Phase 3 Clarity AD & TRAILBLAZER-ALZ 2 safety monitoring data on ApoE &epsilon;4 carrier stratification and microhemorrhage thresholds.
+        </li>
+        <li>
+          <strong>Plasma Biomarker Guidance:</strong> Alzheimer's Association Workgroup on Diagnostic Criteria and Plasma Biomarkers (pTau-217 renal clearance threshold / eGFR validity considerations).
+        </li>
+      </ul>
+
+      <p style="font-size: 0.68rem; color: var(--slate-500, #64748b); font-style: italic; margin-top: 0.5rem;">
+        Disclaimer: This tool is intended for licensed medical providers (MD/DO, PA, NP) as an informal clinical decision aid and documentation assistant. It does not substitute for independent clinical judgment, formal specialty cognitive neurology consultation, or manufacturer prescribing information.
+      </p>
+    </div>
+  </details>
+</footer>
+
+</body>
+</html>
