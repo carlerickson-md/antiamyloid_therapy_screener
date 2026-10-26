@@ -6,7 +6,7 @@ A rapid, client-side pre-referral screening checklist and EHR documentation gene
 
 
 
-\*\*\[Launch the Live Tool](https://github.com/carlerickson-md/antiamyloid_therapy_screener)\*\*
+**[Launch the Live Tool](https://github.io/carlerickson-md/antiamyloid_therapy_screener/)**
 
 
 
